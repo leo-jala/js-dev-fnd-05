@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Primera Aplicacion Web con JavaScript</title>
+    <script type="text/javascript" src="tasks/groupEd-Gre.js"></script>
+</head>
+<body>
+<P ALIGN=left> Lista de Numeros: 1, 3, 5, 7 ,9</p>
+<P ALIGN=left id="sum"> Suma: </p>
+<script type="text/javascript">
+    var s = document.getElementById("sum");
+    s.innerText = "Sum: " + sum(1,3,5,7,9);
+</script>
+<P ALIGN=left id="min"> Min. Value: </p>
+<script type="text/javascript">
+    var s = document.getElementById("min");
+    s.innerText = "Min. Value: " + minValue(1,3,5,7,9);
+</script>
+<P ALIGN=left id="max"> Max. Value: </p>
+<script type="text/javascript">
+    var s = document.getElementById("max");
+    s.innerText = "Max. Value: " + maxValue(1,3,5,7,9);
+</script>
+<P ALIGN=left id="average"> Average: </p>
+<script type="text/javascript">
+    var s = document.getElementById("average");
+    s.innerText = "Average: " + average(1,3,5,7,9);
+</script>
+</body>
+</html>
+	
