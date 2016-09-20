@@ -1,19 +1,25 @@
 /**
  * Created by chelo on 9/17/2016.
+ * Modified by mary on 9/20/2016.
  */
+
+ var Cell = function (value){
+		this.value = value;
+		this.status = false;
+};
 
  var MemoryGame = function (size){
 	if ( size % 2 == 0){
 		this.size = size;
 		this.x = size;
 		this.y = size;
-		this.array = new Array();
+		this.board = new Array();
 	}
 	else{
 		this.size = NaN;
 		this.x = NaN;
 		this.y = NaN;
-		this.array = NaN;
+		this.board = NaN;
 		console.error('The size of the array must be defined as even number.');
 	}
 };
@@ -22,27 +28,27 @@
  * Returns array values
  * @return {Array} array
  */
-MemoryGame.prototype.getArray = function () {
+MemoryGame.prototype.displayBoard = function () {
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
-			console.log(' ', this.array[i][j],' ');
+			console.log(' ', this.board[i][j],' ');
 		}
 	}
-	return this.array;
+	return this.board;
 };
 
 /**
  * Set array with 'x' values
  * @return {Array} array
  */
-MemoryGame.prototype.setArray = function () {
+MemoryGame.prototype.initBoard = function () {
 	for (var i = 0; i < this.x; i++){
-		this.array[i] = new Array();
+		this.board[i] = new Array();
 		for (var j = 0; j < this.y; j++) {
-			this.array[i][j] = 'x';
+			this.board[i][j] = new Cell('X');
 		}
 	}
-	return this.array;
+	//return this.board;
 };
 
 /**
@@ -105,3 +111,7 @@ MemoryGame.prototype.getSize = function (){
 function getRandom(bottom, top) {
 	return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 }
+
+MemoryGame.prototype.startGame = function () {
+	this.initBoard();
+};
