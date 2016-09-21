@@ -9,19 +9,14 @@
 };
 
  var MemoryGame = function (size){
-	if ( size % 2 == 0){
-		this.size = size;
-		this.x = size;
-		this.y = size;
-		this.pairedCards = new Array();
-		this.board = new Array();
-	}
-	else{
-		this.size = NaN;
-		this.x = NaN;
-		this.y = NaN;
-		this.board = NaN;
+	if ( size % 2 != 0){
 		console.error('The size of the array must be defined as even number.');
+		break;
+	this.size = size;
+	this.x = size;
+	this.y = size;
+	this.pairedCards = new Array();
+	this.board = new Array();
 	}
 };
 
@@ -49,7 +44,6 @@ MemoryGame.prototype.initBoard = function () {
 			this.board[i][j] = new Cell('X');
 		}
 	}
-	//return this.board;
 };
 
 /**
@@ -63,11 +57,10 @@ MemoryGame.prototype.suffleArray = function () {
 		for (var y = 0; y < this.size; y++) {
 
 			stringIndex = getRandom(0, this.pairedCards.length-1);
-			this.board[x][y] = this.pairedCards[stringIndex];
+			this.board[x][y].value = this.pairedCards[stringIndex];
 			this.pairedCards.splice(stringIndex,1);
 		}
 	}
-	return this.board;
 };
 
 /**
