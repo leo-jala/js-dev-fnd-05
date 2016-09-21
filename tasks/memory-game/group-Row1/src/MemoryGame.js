@@ -11,13 +11,14 @@
  var MemoryGame = function (size){
 	if ( size % 2 != 0){
 		console.error('The size of the array must be defined as even number.');
-		break;
+		return;
+	}
 	this.size = size;
 	this.x = size;
 	this.y = size;
 	this.pairedCards = new Array();
 	this.board = new Array();
-	}
+
 };
 
 /**
@@ -30,7 +31,6 @@ MemoryGame.prototype.displayBoard = function () {
 			console.log(' ', this.board[i][j],' ');
 		}
 	}
-	return this.board;
 };
 
 /**
@@ -88,5 +88,4 @@ MemoryGame.prototype.initPairedCards = function (){
 		this.pairedCards[i+1] = String.fromCharCode(startcode);
 		startcode++;
 	}
-	return this.pairedCards;
 }
