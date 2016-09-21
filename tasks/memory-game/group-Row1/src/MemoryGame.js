@@ -13,6 +13,7 @@
 		this.size = size;
 		this.x = size;
 		this.y = size;
+		this.pairedCards = new Array();
 		this.board = new Array();
 	}
 	else{
@@ -56,48 +57,17 @@ MemoryGame.prototype.initBoard = function () {
  * @return {Array} array
  */
 MemoryGame.prototype.suffleArray = function () {
-	var limit = this.x*this.y/2;
-	var startcode = 65;
-	var par1 = new Array();
-	var par2 = new Array();
 	var stringIndex = 0;
-	var stringArray = 1;
-
-	for (var i = 0; i < limit; i++) {
-		par1[i] = String.fromCharCode(i + startcode);
-		par2[i] = String.fromCharCode(i + startcode);
-	}
 
 	for (var x = 0; x < this.size; x++) {
 		for (var y = 0; y < this.size; y++) {
 
-			stringArray = getRandom(1, 2);
-
-			if (stringArray == 1){
-				stringIndex = getRandom(0, par1.length-1);
-				if (par1.length > 0){
-					this.array[x][y] = par1[stringIndex];
-					par1.splice(stringIndex,1);
-				}
-				else{
-					this.array[x][y] = par2[stringIndex];
-					par2.splice(stringIndex,1);
-				}
-			}
-			else if(stringArray == 2){
-				stringIndex = getRandom(0, par2.length-1);
-				if (par2.length > 0){
-					this.array[x][y] = par2[stringIndex];
-					par2.splice(stringIndex,1);
-				}
-				else{
-					this.array[x][y] = par1[stringIndex];
-					par1.splice(stringIndex,1);
-				}
-			}
+			stringIndex = getRandom(0, this.pairedCards.length-1);
+			this.board[x][y] = this.pairedCards[stringIndex];
+			this.pairedCards.splice(stringIndex,1);
 		}
 	}
-	return this.array;
+	return this.board;
 };
 
 /**
@@ -113,5 +83,17 @@ function getRandom(bottom, top) {
 }
 
 MemoryGame.prototype.startGame = function () {
+	this.initPairedCards();
 	this.initBoard();
 };
+
+MemoryGame.prototype.initPairedCards = function (){
+	var startcode = 65;
+	var limit = this.x*this.y;
+	for (var i = 0; i < limit; i+=2) {
+		this.pairedCards[i] = String.fromCharCode(startcode);
+		this.pairedCards[i+1] = String.fromCharCode(startcode);
+		startcode++;
+	}
+	return this.pairedCards;
+}
