@@ -115,9 +115,10 @@ MemoryGame.prototype.isBoardResolved = function () {
 	var solved = true;
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
-			if(this.board[i][j].status == 0)
+			if(this.board[i][j].status == 0){
 				solved = false;
 				break;
+			}
 		}
 	}
 	return solved;
@@ -146,9 +147,12 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
         this.hits=0;
         break;
     default:
-        this.hits++;
+        console.log("Something unexpected happened");
+        this.hits=0;
 	}
+	
 	this.displayBoard();
+
 	if (this.isBoardResolved()){
 		console.log("Congrats!!! Solved!!!");
 	}
