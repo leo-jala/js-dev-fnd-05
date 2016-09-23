@@ -18,7 +18,7 @@
 	this.y = size;
 	this.pairedCards = new Array();
 	this.board = new Array();
-
+	this.startGame();
 };
 
 MemoryGame.prototype.controlDisplayState = function(cell){
@@ -105,4 +105,5 @@ MemoryGame.prototype.startGame = function () {
 	this.initBoard();
 	this.initPairedCards();
 	this.shuffleArray();
+	this.displayBoard();
 };
