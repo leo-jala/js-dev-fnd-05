@@ -141,8 +141,12 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
     case 1:
     	this.board[posX][posY].status = 1
     	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
+
+    		this.displayBoard();
+    		setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
     		this.board[this.prevPosX][this.prevPosY].status = 0;
     		this.board[posX][posY].status = 0;
+    		
     	}
         this.hits=0;
         break;
@@ -150,7 +154,7 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
         console.log("Something unexpected happened");
         this.hits=0;
 	}
-	
+
 	this.displayBoard();
 
 	if (this.isBoardResolved()){
@@ -158,4 +162,5 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	}
 
 };
+
 
