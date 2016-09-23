@@ -21,6 +21,17 @@
 
 };
 
+MemoryGame.prototype.controlDisplayState = function(cell){
+
+	if (cell.value == 0 ) {
+		document.write(" X ");
+	}
+	else{
+		document.write(' '+cell.value+' ');
+	}
+
+};
+
 /**
  * Returns array values
  * @return {Array} array
@@ -30,19 +41,10 @@ MemoryGame.prototype.displayBoard = function () {
 		for (var j = 0; j < this.y; j++) {
 			this.controlDisplayState(this.board[i][j])
 		}
+		document.write("<br>");
 	}
 };
 
-MemoryGame.prototype.controlDisplayState = function(cell){
-
-	if (cell.value == 0 ) {
-		console.log('  X  ');
-	}
-	else{
-		console.log(' ', cell.value, ' ');
-	}
-
-};
 
 /**
  * Set array with 'x' values
@@ -84,11 +86,6 @@ MemoryGame.prototype.getSize = function (){
 
 function getRandom(bottom, top) {
 	return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
-}
-
-MemoryGame.prototype.startGame = function () {
-	this.initPairedCards();
-	this.initBoard();
 };
 
 MemoryGame.prototype.initPairedCards = function (){
@@ -99,4 +96,9 @@ MemoryGame.prototype.initPairedCards = function (){
 		this.pairedCards[i+1] = String.fromCharCode(startcode);
 		startcode++;
 	}
-}
+};
+
+MemoryGame.prototype.startGame = function () {
+	this.initPairedCards();
+	this.initBoard();
+};
