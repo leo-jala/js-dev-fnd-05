@@ -16,6 +16,9 @@
 	this.size = size;
 	this.x = size;
 	this.y = size;
+	this.hits = 0;
+	this.prevPosX = 0;
+	this.prevPosY = 0;
 	this.pairedCards = new Array();
 	this.board = new Array();
 	this.startGame();
@@ -119,3 +122,36 @@ MemoryGame.prototype.isBoardResolved = function () {
 	}
 	return solved;
 };
+
+MemoryGame.prototype.isPair = function (cell1, cell2) {
+
+	return (cell1.value == cell2.value)? true : false;
+};
+
+MemoryGame.prototype.hitCell = function (posX, posY) {
+
+	switch(this.hits) {
+    case 0:
+        this.board[posX][posY].status = 1
+        this.prevPosX = posX;
+        this.prevPosY = posY;
+        this.hits++;
+        break;
+    case 1:
+    	this.board[posX][posY].status = 1
+    	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
+    		this.board[this.prevPosX][this.prevPosY].status = 0;
+    		this.board[posX][posY].status = 0;
+    	}
+        this.hits=0;
+        break;
+    default:
+        this.hits++;
+	}
+	this.displayBoard();
+	if (this.isBoardResolved()){
+		console.log("Congrats!!! Solved!!!");
+	}
+
+};
+
