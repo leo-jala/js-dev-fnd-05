@@ -37,6 +37,9 @@ MemoryGame.prototype.controlDisplayState = function(cell){
  * @return {Array} array
  */
 MemoryGame.prototype.displayBoard = function () {
+
+	document.body.innerHTML = '';
+	
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
 			this.controlDisplayState(this.board[i][j])
