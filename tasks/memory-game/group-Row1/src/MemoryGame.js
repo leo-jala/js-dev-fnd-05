@@ -23,7 +23,7 @@
 
 MemoryGame.prototype.controlDisplayState = function(cell){
 
-	if (cell.value == 0 ) {
+	if (cell.status == 0 ) {
 		document.write(" X ");
 	}
 	else{
