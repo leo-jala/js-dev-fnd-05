@@ -5,7 +5,7 @@
 
  var Cell = function (value){
 		this.value = value;
-		this.status = false;
+		this.status = 0;
 };
 
  var MemoryGame = function (size){
@@ -28,9 +28,20 @@
 MemoryGame.prototype.displayBoard = function () {
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
-			console.log(' ', this.board[i][j],' ');
+			this.controlDisplayState(this.board[i][j])
 		}
 	}
+};
+
+MemoryGame.prototype.controlDisplayState = function(cell){
+
+	if (cell.value == 0 ) {
+		console.log('  X  ');
+	}
+	else{
+		console.log(' ', cell.value, ' ');
+	}
+
 };
 
 /**
