@@ -107,3 +107,15 @@ MemoryGame.prototype.startGame = function () {
 	this.shuffleArray();
 	this.displayBoard();
 };
+
+MemoryGame.prototype.isBoardResolved = function () {
+	var solved = true;
+	for (var i = 0; i < this.x; i++){
+		for (var j = 0; j < this.y; j++) {
+			if(this.board[i][j].status == 0)
+				solved = false;
+				break;
+		}
+	}
+	return solved;
+};
