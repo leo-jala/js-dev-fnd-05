@@ -39,7 +39,7 @@ MemoryGame.prototype.controlDisplayState = function(cell){
 MemoryGame.prototype.displayBoard = function () {
 
 	document.body.innerHTML = '';
-	
+
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
 			this.controlDisplayState(this.board[i][j])
@@ -66,7 +66,7 @@ MemoryGame.prototype.initBoard = function () {
  * Set array with 'x' values
  * @return {Array} array
  */
-MemoryGame.prototype.suffleArray = function () {
+MemoryGame.prototype.shuffleArray = function () {
 	var stringIndex = 0;
 
 	for (var x = 0; x < this.size; x++) {
@@ -102,6 +102,7 @@ MemoryGame.prototype.initPairedCards = function (){
 };
 
 MemoryGame.prototype.startGame = function () {
-	this.initPairedCards();
 	this.initBoard();
+	this.initPairedCards();
+	this.shuffleArray();
 };
