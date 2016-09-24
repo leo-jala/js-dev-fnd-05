@@ -1,6 +1,6 @@
 /**
  * Created by chelo on 9/17/2016.
- * Modified by mary on 9/20/2016.
+ * Modified by mary on 9/24/2016.
  */
 
  var Cell = function (value){
@@ -141,8 +141,8 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
     case 1:
     	this.board[posX][posY].status = 1
     	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
-
     		this.displayBoard();
+			sleep();
     		setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
     		this.board[this.prevPosX][this.prevPosY].status = 0;
     		this.board[posX][posY].status = 0;
@@ -154,13 +154,19 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
         console.log("Something unexpected happened");
         this.hits=0;
 	}
-
-	this.displayBoard();
+	var me = this;
+	setTimeout(function(){
+		me.displayBoard()
+	}, 2500);
 
 	if (this.isBoardResolved()){
 		console.log("Congrats!!! Solved!!!");
 	}
 
+};
+var sleep = function (){
+	for (var i = 0; i < 300000; i++){
+	}
 };
 
 
