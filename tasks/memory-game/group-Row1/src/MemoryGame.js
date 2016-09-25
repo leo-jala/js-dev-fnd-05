@@ -6,6 +6,8 @@
  var Cell = function (value){
 		this.value = value;
 		this.status = 0;
+
+
 };
 
  var MemoryGame = function (size){
@@ -21,16 +23,16 @@
 	this.prevPosY = 0;
 	this.pairedCards = new Array();
 	this.board = new Array();
-	this.startGame();
+	startGame();
 };
 
-MemoryGame.prototype.controlDisplayState = function(cell){
+function controlDisplayState(cell){
 
 	if (cell.status == 0 ) {
-		document.write(" X ");
+		return " X ";
 	}
 	else{
-		document.write(' '+cell.value+' ');
+		return cell.value;
 	}
 
 };
@@ -39,16 +41,14 @@ MemoryGame.prototype.controlDisplayState = function(cell){
  * Returns array values
  * @return {Array} array
  */
-MemoryGame.prototype.displayBoard = function () {
+function displayBoard() {
 
-	document.body.innerHTML = '';
-
-	for (var i = 0; i < this.x; i++){
-		for (var j = 0; j < this.y; j++) {
-			this.controlDisplayState(this.board[i][j])
+	for (var i = 0; i < x; i++){
+		for (var j = 0; j < y; j++) {
+			controlDisplayState(board[i][j]);
 		}
-		document.write("<br>");
 	}
+	return board;
 };
 
 
@@ -56,66 +56,61 @@ MemoryGame.prototype.displayBoard = function () {
  * Set array with 'x' values
  * @return {Array} array
  */
-MemoryGame.prototype.initBoard = function () {
-	for (var i = 0; i < this.x; i++){
-		this.board[i] = new Array();
-		for (var j = 0; j < this.y; j++) {
-			this.board[i][j] = new Cell('X');
+function initBoard() {
+	for (var i = 0; i < x; i++){
+		board[i] = new Array();
+		for (var j = 0; j < y; j++) {
+			board[i][j] = new Cell('X');
 		}
 	}
 };
 
 /**
- * Set array with 'x' values
+ * Set array with suffle values
  * @return {Array} array
  */
-MemoryGame.prototype.shuffleArray = function () {
+function shuffleArray() {
 	var stringIndex = 0;
 
 	for (var x = 0; x < this.size; x++) {
 		for (var y = 0; y < this.size; y++) {
 
-			stringIndex = getRandom(0, this.pairedCards.length-1);
-			this.board[x][y].value = this.pairedCards[stringIndex];
-			this.pairedCards.splice(stringIndex,1);
+			stringIndex = getRandom(0, pairedCards.length-1);
+			board[x][y].value = pairedCards[stringIndex];
+			pairedCards.splice(stringIndex,1);
 		}
 	}
-};
-
-/**
- * Returns size
- * @return {Number} size
- */
-MemoryGame.prototype.getSize = function (){
-	return this.size;
 };
 
 function getRandom(bottom, top) {
 	return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
 };
 
-MemoryGame.prototype.initPairedCards = function (){
+/**
+ * Set an array with paired values from A until 'N' values
+ */
+function initPairedCards(){
 	var startcode = 65;
-	var limit = this.x*this.y;
+	var limit = x*y;
 	for (var i = 0; i < limit; i+=2) {
-		this.pairedCards[i] = String.fromCharCode(startcode);
-		this.pairedCards[i+1] = String.fromCharCode(startcode);
+		pairedCards[i] = String.fromCharCode(startcode);
+		pairedCards[i+1] = String.fromCharCode(startcode);
 		startcode++;
 	}
 };
 
-MemoryGame.prototype.startGame = function () {
-	this.initBoard();
-	this.initPairedCards();
-	this.shuffleArray();
-	this.displayBoard();
+function startGame() {
+	initBoard();
+	initPairedCards();
+	shuffleArray();
+	displayHTMLBoard();
 };
 
-MemoryGame.prototype.isBoardResolved = function () {
+function isBoardResolved() {
 	var solved = true;
-	for (var i = 0; i < this.x; i++){
-		for (var j = 0; j < this.y; j++) {
-			if(this.board[i][j].status == 0){
+	for (var i = 0; i < x; i++){
+		for (var j = 0; j < y; j++) {
+			if(board[i][j].status == 0){
 				solved = false;
 				break;
 			}
@@ -124,43 +119,43 @@ MemoryGame.prototype.isBoardResolved = function () {
 	return solved;
 };
 
-MemoryGame.prototype.isPair = function (cell1, cell2) {
+function isPair(cell1, cell2) {
 
 	return (cell1.value == cell2.value)? true : false;
 };
 
-MemoryGame.prototype.hitCell = function (posX, posY) {
+function hitCell(posX, posY) {
 
-	switch(this.hits) {
+	switch(hits) {
     case 0:
-        this.board[posX][posY].status = 1
-        this.prevPosX = posX;
-        this.prevPosY = posY;
-        this.hits++;
+        board[posX][posY].status = 1
+        prevPosX = posX;
+        prevPosY = posY;
+        hits++;
         break;
     case 1:
-    	this.board[posX][posY].status = 1
-    	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
-    		this.displayBoard();
+    	board[posX][posY].status = 1
+    	if(!isPair(board[prevPosX][prevPosY], board[posX][posY])){
+    		displayHTMLBoard();
 			sleep();
-    		setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
-    		this.board[this.prevPosX][this.prevPosY].status = 0;
-    		this.board[posX][posY].status = 0;
+    		setTimeout(function(){ console.log("NOT A MATCH!!!"); }, 100);
+    		board[prevPosX][prevPosY].status = 0;
+    		board[posX][posY].status = 0;
     		
     	}
-        this.hits=0;
+        hits=0;
         break;
     default:
         console.log("Something unexpected happened");
-        this.hits=0;
+        hits=0;
 	}
 	var me = this;
 	setTimeout(function(){
-		me.displayBoard()
+		me.displayHTMLBoard()
 	}, 2500);
 
-	if (this.isBoardResolved()){
-		console.log("Congrats!!! Solved!!!");
+	if (isBoardResolved()){
+		console.log("Congrats!!! Solved!!!"); // TODO: set an alert and wait until the card is discovered
 	}
 
 };
@@ -169,4 +164,42 @@ var sleep = function (){
 	}
 };
 
+/**
+ * Updates the table according the position hit
+ */
+function getId(obj) {
+	var hit = obj.id;
+	var res = hit.split(",");
 
+	console.log('Hit(x:',res[0],',y:',res[1],')');
+
+	hitCell(parseInt(res[0]), parseInt(res[1]));
+	// return hit.split(",");
+}
+
+/**
+ * Displays the array in HTML view
+ */
+function displayHTMLBoard() {
+	// Find a <table> element with id="myTable":
+	var table = '<table border=1>';
+	
+	for (var i = 0; i < x; i++){
+		table += '<tr>';
+		for (var j = 0; j < y; j++) {
+			
+			table += '<td id="' + i + ',' + j + '" onclick="getId(this);">' + controlDisplayState(board[i][j]) + '</td>';
+		}
+		table += '</tr>';
+	}
+	table += '</table>';
+	document.getElementById('inner').innerHTML = table;
+};
+
+/**
+ * Initialize the game by clicking start button
+ */
+function Game(){
+	var size = document.getElementById('size').value;
+	var a = MemoryGame(size);
+}
