@@ -49,8 +49,14 @@ MemoryGame.prototype.displayBoard = function () {
 		}
 		document.write("<br>");
 	}
+	document.write("<br>");
+	this.createButtonForHit();
 };
 
+MemoryGame.prototype.createButtonForHit = function(){
+	document.write('<input id="coordinate" type="text" value="0,0">');
+	document.write('<button type="button" onClick="hit()">Enter coordinate</button>');
+}
 
 /**
  * Set array with 'x' values
@@ -156,7 +162,7 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	var me = this;
 	setTimeout(function(){
 		me.displayBoard()
-	}, 2500);
+	}, 1500);
 
 	if (this.isBoardResolved()){
 		console.log("Congrats!!! Solved!!!");
