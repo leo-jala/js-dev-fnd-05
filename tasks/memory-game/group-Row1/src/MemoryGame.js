@@ -142,7 +142,6 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
     	this.board[posX][posY].status = 1
     	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
     		this.displayBoard();
-			sleep();
     		setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
     		this.board[this.prevPosX][this.prevPosY].status = 0;
     		this.board[posX][posY].status = 0;
@@ -164,9 +163,8 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	}
 
 };
-var sleep = function (){
-	for (var i = 0; i < 300000; i++){
-	}
-};
+
+
+
 
 
