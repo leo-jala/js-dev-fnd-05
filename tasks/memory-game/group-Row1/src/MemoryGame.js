@@ -53,6 +53,11 @@ MemoryGame.prototype.displayBoard = function() {
 	return this.board;
 };
 
+MemoryGame.prototype.createButtonForHit = function(){
+	document.write('<input id="coordinate" type="text" value="0,0">');
+	document.write('<button type="button" onClick="hit()">Enter coordinate</button>');
+}
+
 /**
  * Sets board array with 'x' values
  */
@@ -161,7 +166,7 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	}, 1500);
 
 	if (this.isBoardResolved()){
-		alert("Congrats!!! Solved!!!");
+		console.log("Congrats!!! Solved!!!");
 	}
 };
 
