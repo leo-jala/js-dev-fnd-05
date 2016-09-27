@@ -10,7 +10,7 @@
 
  var MemoryGame = function (size){
 	if ( size % 2 != 0){
-		console.error('The size of the array must be defined as even number.');
+		alert('The size of the array must be defined as even number.');
 		return;
 	}
 	this.size = size;
@@ -24,33 +24,33 @@
 	this.startGame();
 };
 
+/**
+ * Returns cell value based on the status
+ * @param {cell}
+ * @returns {value}
+ */
 MemoryGame.prototype.controlDisplayState = function(cell){
 
 	if (cell.status == 0 ) {
-		document.write(" X ");
+		return " X ";
 	}
 	else{
-		document.write(' '+cell.value+' ');
+		return cell.value;
 	}
-
 };
 
 /**
- * Returns array values
- * @return {Array} array
+ * Returns board values
+ * @returns {Array} board
  */
-MemoryGame.prototype.displayBoard = function () {
-
-	document.body.innerHTML = '';
+MemoryGame.prototype.displayBoard = function() {
 
 	for (var i = 0; i < this.x; i++){
 		for (var j = 0; j < this.y; j++) {
-			this.controlDisplayState(this.board[i][j])
+			this.controlDisplayState(this.board[i][j]);
 		}
-		document.write("<br>");
 	}
-	document.write("<br>");
-	this.createButtonForHit();
+	return this.board;
 };
 
 MemoryGame.prototype.createButtonForHit = function(){
@@ -59,8 +59,7 @@ MemoryGame.prototype.createButtonForHit = function(){
 }
 
 /**
- * Set array with 'x' values
- * @return {Array} array
+ * Sets board array with 'x' values
  */
 MemoryGame.prototype.initBoard = function () {
 	for (var i = 0; i < this.x; i++){
@@ -72,8 +71,7 @@ MemoryGame.prototype.initBoard = function () {
 };
 
 /**
- * Set array with 'x' values
- * @return {Array} array
+ * Sets board array with suffle values based on the declared size
  */
 MemoryGame.prototype.shuffleArray = function () {
 	var stringIndex = 0;
@@ -81,7 +79,7 @@ MemoryGame.prototype.shuffleArray = function () {
 	for (var x = 0; x < this.size; x++) {
 		for (var y = 0; y < this.size; y++) {
 
-			stringIndex = getRandom(0, this.pairedCards.length-1);
+			stringIndex = getRandom(this.pairedCards.length-1);
 			this.board[x][y].value = this.pairedCards[stringIndex];
 			this.pairedCards.splice(stringIndex,1);
 		}
@@ -89,15 +87,10 @@ MemoryGame.prototype.shuffleArray = function () {
 };
 
 /**
- * Returns size
- * @return {Number} size
- */
-MemoryGame.prototype.getSize = function (){
-	return this.size;
-};
-
-function getRandom(bottom, top) {
-	return Math.floor( Math.random() * ( 1 + top - bottom ) ) + bottom;
+* Returns a random value between two numbers
+*/
+function getRandom(top) {
+	return Math.floor( Math.random() * ( 1 + top - 0 ) );
 };
 
 MemoryGame.prototype.initPairedCards = function (){
@@ -114,7 +107,7 @@ MemoryGame.prototype.startGame = function () {
 	this.initBoard();
 	this.initPairedCards();
 	this.shuffleArray();
-	this.displayBoard();
+	this.displayHTMLBoard();
 };
 
 MemoryGame.prototype.isBoardResolved = function () {
@@ -130,13 +123,19 @@ MemoryGame.prototype.isBoardResolved = function () {
 	return solved;
 };
 
+/**
+* Returns if two cell values match
+* @returns {match status}
+*/
 MemoryGame.prototype.isPair = function (cell1, cell2) {
-
 	return (cell1.value == cell2.value)? true : false;
 };
 
+/**
+* Evaluates the hit cell in the board
+*/
 MemoryGame.prototype.hitCell = function (posX, posY) {
-
+	console.log('Hit(x:',posX,',y:',posY,')');
 	switch(this.hits) {
     case 0:
         this.board[posX][posY].status = 1
@@ -147,11 +146,13 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
     case 1:
     	this.board[posX][posY].status = 1
     	if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
-    		this.displayBoard();
+    		this.displayHTMLBoard();
     		setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
     		this.board[this.prevPosX][this.prevPosY].status = 0;
-    		this.board[posX][posY].status = 0;
-    		
+    		this.board[posX][posY].status = 0;    		
+    	}
+    	else{
+    		console.log('Match!');
     	}
         this.hits=0;
         break;
@@ -161,16 +162,29 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	}
 	var me = this;
 	setTimeout(function(){
-		me.displayBoard()
+		me.displayHTMLBoard()
 	}, 1500);
 
 	if (this.isBoardResolved()){
 		console.log("Congrats!!! Solved!!!");
 	}
-
 };
 
-
-
-
-
+/**
+ * Displays the array in HTML view
+ */
+MemoryGame.prototype.displayHTMLBoard = function() {
+	// Find a <table> element with id="myTable":
+	var table = '<table border=1>';
+	
+	for (var i = 0; i < this.x; i++){
+		table += '<tr>';
+		for (var j = 0; j < this.y; j++) {
+			
+			table += '<td id="' + i + ',' + j + '" onclick="hitCell(this);">' + this.controlDisplayState(this.board[i][j]) + '</td>';
+		}
+		table += '</tr>';
+	}
+	table += '</table>';
+	document.getElementById('inner').innerHTML = table;
+};

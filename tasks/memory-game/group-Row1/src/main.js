@@ -6,9 +6,11 @@ var game = function(){
 	memory = new MemoryGame(size);
 }
 
-var hit =  function(){
-	var strCoordinate = document.getElementById('coordinate').value;
-	var posX = parseInt(strCoordinate.split(',')[0]);
-	var posY = parseInt(strCoordinate.split(',')[1]);
-	memory.hitCell(posX,posY);
+/**
+ * Get the id of the cell clicked and updates the table according the position
+ */
+function hitCell(obj) {
+	var hit = obj.id;
+	var res = hit.split(",");
+	memory.hitCell(parseInt(res[0]), parseInt(res[1]));
 }
