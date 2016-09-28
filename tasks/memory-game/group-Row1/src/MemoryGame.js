@@ -9,9 +9,13 @@
 };
 
  var MemoryGame = function (size){
-	if ( size % 2 != 0){
-		alert('The size of the array must be defined as even number.');
-		return;
+	if (size*size % 2 != 0){
+		this.comodin = true;
+		this.centerA = -1;
+		this.centerB = -1;
+	}
+	else{
+		this.comodin = false;
 	}
 	this.size = size;
 	this.x = size;
@@ -30,7 +34,6 @@
  * @returns {value}
  */
 MemoryGame.prototype.controlDisplayState = function(cell){
-
 	if (cell.status == 0 ) {
 		return " X ";
 	}
@@ -53,11 +56,6 @@ MemoryGame.prototype.displayBoard = function() {
 	return this.board;
 };
 
-MemoryGame.prototype.createButtonForHit = function(){
-	document.write('<input id="coordinate" type="text" value="0,0">');
-	document.write('<button type="button" onClick="hit()">Enter coordinate</button>');
-}
-
 /**
  * Sets board array with 'x' values
  */
@@ -76,12 +74,22 @@ MemoryGame.prototype.initBoard = function () {
 MemoryGame.prototype.shuffleArray = function () {
 	var stringIndex = 0;
 
+	if(this.comodin){
+		this.centerA = Math.round(this.x/2)-1;
+		this.centerB = Math.round(this.y/2)-1;
+	}
+
 	for (var x = 0; x < this.size; x++) {
 		for (var y = 0; y < this.size; y++) {
-
-			stringIndex = getRandom(this.pairedCards.length-1);
-			this.board[x][y].value = this.pairedCards[stringIndex];
-			this.pairedCards.splice(stringIndex,1);
+			if(x == this.centerA && y == this.centerB){
+				this.board[x][y].value = '☺';
+				this.board[x][y].status = 1;
+			}
+			else{
+				stringIndex = getRandom(this.pairedCards.length-1);
+				this.board[x][y].value = this.pairedCards[stringIndex];
+				this.pairedCards.splice(stringIndex,1);
+			}
 		}
 	}
 };
@@ -95,7 +103,13 @@ function getRandom(top) {
 
 MemoryGame.prototype.initPairedCards = function (){
 	var startcode = 65;
-	var limit = this.x*this.y;
+	var limit = -1;
+	if(this.comodin){
+		limit = this.x*this.y-1
+	}
+	else{
+		limit = this.x*this.y;
+	}
 	for (var i = 0; i < limit; i+=2) {
 		this.pairedCards[i] = String.fromCharCode(startcode);
 		this.pairedCards[i+1] = String.fromCharCode(startcode);
@@ -136,6 +150,20 @@ MemoryGame.prototype.isPair = function (cell1, cell2) {
 */
 MemoryGame.prototype.hitCell = function (posX, posY) {
 	console.log('Hit(x:',posX,',y:',posY,')');
+	if(this.comodin){
+		if(posX == this.centerA && posY == this.centerB){
+			console.log('Click center');
+		}
+		else{
+			this.hitCellBasic(posX, posY);
+		}
+	}
+	else{
+		this.hitCellBasic(posX, posY);
+	}
+};
+
+MemoryGame.prototype.hitCellBasic = function(posX, posY){
 	switch(this.hits) {
     case 0:
         this.board[posX][posY].status = 1
@@ -168,7 +196,7 @@ MemoryGame.prototype.hitCell = function (posX, posY) {
 	if (this.isBoardResolved()){
 		console.log("Congrats!!! Solved!!!");
 	}
-};
+}
 
 /**
  * Displays the array in HTML view
@@ -181,7 +209,7 @@ MemoryGame.prototype.displayHTMLBoard = function() {
 		table += '<tr>';
 		for (var j = 0; j < this.y; j++) {
 			
-			table += '<td id="' + i + ',' + j + '" onclick="hitCell(this);">' + this.controlDisplayState(this.board[i][j]) + '</td>';
+			table += '<td id="' + i + ',' + j + '" onclick="hitCell(this);" align="center">' + this.controlDisplayState(this.board[i][j]) + '</td>';
 		}
 		table += '</tr>';
 	}
