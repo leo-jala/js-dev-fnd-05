@@ -1,48 +1,44 @@
-var Memory = function(size, turnLimit, move, configGame) {
-	this.size = size;
-	this.move = move;	
-	var turnsLeft = 5;
-	
-	//This method receives players names
-	this.savePlayers = function() {
-		var player = window.prompt("Enter your name please.");
-		console.log('Hello ', player);
-		return(player);
-	}
+/*
+* @Author Marco Llano
+*/
+var Memory = function() {		
+}
+var player = '';
 
-	
-	var player = this.savePlayers();
-
-	this.getPlayer = function() {
-		var player = this.savePlayers
-	}
-
-	//This method calculates turns left of player.
-	this.turnLeft = function() {		
-		while(turnsLeft>0) {
-			turnsLeft--;
-			break;
-		}
-		return turnsLeft;
-	}
-
-	//This method calls turnLeft and calculate turns left for player, return boolean
-	this.gameStatus = function() {
-		var flag = true;		
-		var turnsLeft = this.turnLeft();
-
-		if (turnsLeft == 1) {
-			console.log('Player ', player, 'has ', turnsLeft, ' turn left.');
-		} else if (turnsLeft > 0){
-			console.log('Player ', player, 'has ', turnsLeft, ' turns left.');
-		}
-
-		if (turnsLeft == 0) {
-			flag = false;
-			console.log('Game is over.');
-			return flag;
-		}
-		return flag;
-	}
+Memory.prototype.savePlayers = function(){
+	var player = window.prompt("Welcome to Memory Game. Please enter your name.");
+	return(player);
 }
 
+Memory.prototype.getPlayer = function() {
+	return player;
+}
+
+Memory.prototype.turnsLeft = function(turnsLeft) {
+	this.left = parseInt(turnsLeft);
+
+	while(this.left > 0) {
+			this.left--;
+			break;
+	}
+	return this.left;
+}
+
+Memory.prototype.gameStatus = function(player, limit) {
+	var flag = true;		
+	this.player = player;
+	memory = new Memory();
+
+	if (limit == 1) {
+		console.log('Player ', player, 'has ', limit, ' turn left.');
+	} else if (limit > 0){
+		console.log('Player ', player, 'has ', limit, ' turns left.');
+	}
+
+	if (limit == 0) {
+		flag = false;
+		console.log('Game is over.');
+		return flag;
+	}
+	return flag;
+}

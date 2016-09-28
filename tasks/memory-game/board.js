@@ -110,31 +110,4 @@ function promptCell(message) {
     return (itemCoordinatesString.map(toInt)).slice(0,2);
 }
 
-var board = new Board(5);
-board.initialize();
-board.printControlBoard();
-board.printGameBoard();
-
-var firstItemCoordinates = promptCell('Select an item specifying a row and column.\nExample: 1,2');
-var firstItemValue = board.getItemAt(firstItemCoordinates[0], firstItemCoordinates[1]);
-board.revealItemAt(firstItemCoordinates[0], firstItemCoordinates[1]);
-board.printGameBoard();
-
-var secondItemCoordinates = promptCell('Now select the matching item.');
-var secondItemValue = board.getItemAt(secondItemCoordinates[0], secondItemCoordinates[1]);
-board.revealItemAt(secondItemCoordinates[0], secondItemCoordinates[1]);
-board.printGameBoard();
-
-var delay = setTimeout(function(){
-
-    if (firstItemValue != secondItemValue) {
-        board.hideItemAt(firstItemCoordinates[0], firstItemCoordinates[1]);
-        board.hideItemAt(secondItemCoordinates[0], secondItemCoordinates[1]);
-    }
-    board.printGameBoard();
-
-},10000);
-
-clearTimeout(delay);
-
 
