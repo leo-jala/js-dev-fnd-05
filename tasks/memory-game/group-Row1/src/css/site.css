@@ -1,7 +1,61 @@
 table {
-    background-color: lightblue;
+    background-color: orange;
+	border-collapse: collapse;
+	border: 1px solid black;
+	
 }
 
 td {
+	font-family: 'Didact Gothic', sans-serif;
     font-size: 300%;
+	border: 2px solid white;
+	width: 15%;
 }
+
+td:hover {
+    background-color: #FDF544;
+    color: black;
+}
+
+.box{
+  width:40%;
+  height:200px;
+  float:left;
+  background-color:white; 
+  margin:25px 15px;
+  border-radius:5px;
+  font-family: 'Didact Gothic', sans-serif;
+  font-weight:normal;
+  font-size: 40px;
+  text-align:center;
+  padding-top:60px;
+  color:#116611;
+  text-shadow: #969696 1px 3px 0, #aba8a8 1px 13px 5px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+input[type=text] {
+    width: 200px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+	font-family: 'Didact Gothic', sans-serif;
+	font-weight:normal;
+	font-size: 20px;
+}
+.textCommon{
+	font-family: 'Didact Gothic', sans-serif;
+	font-weight:bold;
+	font-size: 20px;
+	color:#116611;
+}
+

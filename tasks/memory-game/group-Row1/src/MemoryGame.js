@@ -3,7 +3,11 @@
 * Modified by mary on 9/24/2016.
 */
  
- 
+var Player =  function(){
+
+};
+
+
 var Cell = function (value){
     this.value = value;
     this.status = 0;
@@ -11,12 +15,8 @@ var Cell = function (value){
  
  
 var MemoryGame = function (size){
-    if (size*size % 2 != 0){
-        this.comodin = true;
-    }
-    else{
-        this.comodin = false;
-    }
+
+    this.wildcard = (size*size % 2 != 0)? true : false;
     this.centerA = -1;
     this.centerB = -1;
     this.size = size;
@@ -37,12 +37,8 @@ var MemoryGame = function (size){
 * @returns {value}
 */
 MemoryGame.prototype.controlDisplayState = function(cell){
-    if (cell.status == 0 ) {
-        return " X ";
-    }
-    else{
-        return cell.value;
-    }
+
+    return  (cell.status == 0 )? " X " : cell.value;
 };
  
 /**
@@ -76,7 +72,7 @@ MemoryGame.prototype.initBoard = function () {
 MemoryGame.prototype.shuffleArray = function () {
     var stringIndex = 0;
 
-    if(this.comodin){
+    if(this.wildcard){
         this.centerA = Math.round(this.x/2)-1;
         this.centerB = Math.round(this.y/2)-1;
     }
@@ -105,7 +101,7 @@ function getRandom(top) {
 MemoryGame.prototype.initPairedCards = function (){
     var startcode = 65;
     var limit = -1;
-    if(this.comodin){
+    if(this.wildcard){
         limit = this.x*this.y-1
     }
     else{
@@ -143,47 +139,33 @@ MemoryGame.prototype.isBoardResolved = function () {
 * @returns {match status}
 */
 MemoryGame.prototype.isPair = function (cell1, cell2) {
-                return (cell1.value == cell2.value)? true : false;
+
+    return (cell1.value == cell2.value)? true : false;
+};
+
+MemoryGame.prototype.isValidHitInPosition = function(posX, posY){
+
+    var valid = true;
+
+    if((this.board[posX][posY].status == 1)|| (this.wildcard && posX == this.centerA && posY == this.centerB))
+        valid = false;
+
+    return valid;
 };
  
-/**
-* Evaluates the hit cell in the board
-*/
-MemoryGame.prototype.hitCell = function (posX, posY) {
+MemoryGame.prototype.hitCell = function(posX, posY){
+    if(!this.isValidHitInPosition(posX, posY)){
+        return;
+    }
     console.log('Hit(x:',posX,',y:',posY,')');
-    if(this.comodin){
-        if(posX == this.centerA && posY == this.centerB){
-            console.log('Click center');
-        }
-        else{
-            this.hitCellBasic(posX, posY);
-        }
-    }
-    else{
-        this.hitCellBasic(posX, posY);
-    }
-};
- 
-MemoryGame.prototype.hitCellBasic = function(posX, posY){
     switch(this.hits) {
         case 0:
-            if(this.board[posX][posY].status == 1){
-                console.log('Trying to hit in an already discovered cell');
-            }
-            else
-            {
                 this.board[posX][posY].status = 1
                 this.prevPosX = posX;
                 this.prevPosY = posY;
                 this.hits++;
-            }
             break;
         case 1:
-            if(this.board[posX][posY].status == 1){
-                console.log('Trying to hit in an already discovered cell');
-            }
-            else
-            {
                 this.board[posX][posY].status = 1
                 if(!this.isPair(this.board[this.prevPosX][this.prevPosY], this.board[posX][posY])){
                     this.displayHTMLBoard();
@@ -191,11 +173,7 @@ MemoryGame.prototype.hitCellBasic = function(posX, posY){
                     this.board[this.prevPosX][this.prevPosY].status = 0;
                     this.board[posX][posY].status = 0;
                 }
-                else{
-                    console.log('Match!');
-                }
                 this.hits=0;
-            }
             break;
         default:
             console.log("Something unexpected happened");
@@ -207,7 +185,7 @@ MemoryGame.prototype.hitCellBasic = function(posX, posY){
     }, 1500);
 
     if (this.isBoardResolved()){
-        console.log("Congrats!!! Solved!!!");
+        document.getElementById("msg").innerHTML="Congrats!!! You Won! :)";
     }
 }
  
