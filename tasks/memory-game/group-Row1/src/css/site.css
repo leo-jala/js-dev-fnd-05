@@ -9,12 +9,13 @@ td {
 	font-family: 'Didact Gothic', sans-serif;
     font-size: 300%;
 	border: 2px solid white;
-	width: 15%;
+	width: 100px;
 }
 
 td:hover {
     background-color: #FDF544;
     color: black;
+	width: 100px;
 }
 
 .box{
@@ -51,6 +52,7 @@ input[type=text] {
 	font-family: 'Didact Gothic', sans-serif;
 	font-weight:normal;
 	font-size: 20px;
+	width: 70px;
 }
 .textCommon{
 	font-family: 'Didact Gothic', sans-serif;
@@ -59,3 +61,11 @@ input[type=text] {
 	color:#116611;
 }
 
+.dropbtn {
+    background-color: #D7D6D7;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}

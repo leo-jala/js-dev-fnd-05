@@ -14,14 +14,13 @@ var Cell = function (value){
 };
  
  
-var MemoryGame = function (size){
+var MemoryGame = function (width, height){
 
-    this.wildcard = (size*size % 2 != 0)? true : false;
+    this.wildcard = (width*height % 2 != 0)? true : false;
     this.centerA = -1;
     this.centerB = -1;
-    this.size = size;
-    this.x = size;
-    this.y = size;
+    this.x = width;
+    this.y = height;
     this.hits = 0;
     this.prevPosX = 0;
     this.prevPosY = 0;
@@ -63,8 +62,8 @@ MemoryGame.prototype.shuffleArray = function () {
         this.centerA = Math.round(this.x/2)-1;
         this.centerB = Math.round(this.y/2)-1;
     }
-    for (var x = 0; x < this.size; x++) {
-        for (var y = 0; y < this.size; y++) {
+    for (var x = 0; x < this.x; x++) {
+        for (var y = 0; y < this.y; y++) {
             if(x == this.centerA && y == this.centerB){
                 this.board[x][y].value = '☺';
                 this.board[x][y].status = 1;
