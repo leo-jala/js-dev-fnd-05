@@ -40,19 +40,6 @@ MemoryGame.prototype.controlDisplayState = function(cell){
 
     return  (cell.status == 0 )? " X " : cell.value;
 };
- 
-/**
-* Returns board values
-* @returns {Array} board
-*/
-MemoryGame.prototype.displayBoard = function() {
-    for (var i = 0; i < this.x; i++){
-        for (var j = 0; j < this.y; j++) {
-            this.controlDisplayState(this.board[i][j]);
-        }
-    }
-    return this.board;
-};
   
 /**
 * Sets board array with 'x' values
