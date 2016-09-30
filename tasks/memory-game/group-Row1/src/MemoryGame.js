@@ -191,16 +191,30 @@ MemoryGame.prototype.hitCell = function(posX, posY){
 };
 
 MemoryGame.prototype.controlPlayerHits = function(match) {
-    if(this.player1.turn){
-        this.player1.matches += match
+
+    switch(match) {
+    case 0:
+        if(this.player1.turn){
         this.player1.turn = false;
         this.player2.turn = true;
-    }
-    else{
-        this.player2.matches += match
+        }
+        else{
         this.player2.turn = false;
         this.player1.turn = true;
+        }
+        break;
+    case 1:
+        if(this.player1.turn){
+        this.player1.matches += match
+        }
+        else{
+        this.player2.matches += match
+        }
+        break;
+    default:
+        console.log("Something unexpected happened");
     }
+    
 };
 
 MemoryGame.prototype.displayPlayerTurn = function() {
