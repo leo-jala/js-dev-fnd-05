@@ -7,9 +7,17 @@
 	<script src="src/MemoryGame.js" type="application/javascript"></script>
     <script src="src/main.js" type="application/javascript"></script>
 </head>
-<body>
-	<div class="textCommon">Set size: 
-	<input id="size" type="text" value="4"> 
+<body onload="loadDropdown()">
+	<div class="textCommon">Set width: 
+	  <select id="width" class="dropbtn">
+	  </select>
+	<br>
+	<br>
+	<div class="textCommon">Set height: 	
+	  <select id="height" class="dropbtn">
+	  </select>
+	<br>
+	<br>
 	<button type="button" onClick="game()" class="button">Click me to start!</button>
 	</div>
 	<br>
