@@ -115,6 +115,9 @@ MemoryGame.prototype.startGame = function () {
     this.displayPlayerTurn();
 };
  
+/**
+* @return {boolean}  true if the board is solved, otherwise false
+*/
 MemoryGame.prototype.isBoardResolved = function () {
     var solved = true;
     for (var i = 0; i < this.x; i++){
@@ -129,14 +132,16 @@ MemoryGame.prototype.isBoardResolved = function () {
 };
  
 /**
-* Returns if two cell values match
-* @returns {match status}
+*  @returns {boolean} true if two cell values match, otherwise false
 */
 MemoryGame.prototype.isPair = function (cell1, cell2) {
 
     return (cell1.value == cell2.value)? true : false;
 };
 
+/**
+*  @returns {boolean} true if the cell was not opened before or if it is not the wildcard
+*/
 MemoryGame.prototype.isValidHitInPosition = function(posX, posY){
 
     var valid = true;
@@ -200,7 +205,7 @@ MemoryGame.prototype.controlPlayerHits = function(match) {
 
 MemoryGame.prototype.displayPlayerTurn = function() {
     var name = (this.player1.turn)? this.player1.name : this.player2.name;
-    document.getElementById("playerName").innerHTML = "It's your turn "+name;
+    document.getElementById("playerName").innerHTML = "It's your turn " + name;
 };
 
 MemoryGame.prototype.displayPlayerMsg = function() {
@@ -210,10 +215,10 @@ MemoryGame.prototype.displayPlayerMsg = function() {
         }
         else{
             if(this.player1.matches > this.player2.matches){
-                document.getElementById("msg").innerHTML = this.player1.name + "WON!  Congratulations!";
+                document.getElementById("msg").innerHTML = this.player1.name + " WON!  Congratulations!";
             }
             else{
-                document.getElementById("msg").innerHTML = this.player2.name + "WON!  Congratulations!";
+                document.getElementById("msg").innerHTML = this.player2.name + " WON!  Congratulations!";
             }
         }
         document.getElementById("playerName").innerHTML = "";
