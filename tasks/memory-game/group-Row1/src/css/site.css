@@ -45,14 +45,13 @@ td:hover {
     font-size: 16px;
 }
 input[type=text] {
-    width: 200px;
+    width: 150px;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
 	font-family: 'Didact Gothic', sans-serif;
 	font-weight:normal;
 	font-size: 20px;
-	width: 70px;
 }
 .textCommon{
 	font-family: 'Didact Gothic', sans-serif;
@@ -68,4 +67,10 @@ input[type=text] {
     font-size: 16px;
     border: none;
     cursor: pointer;
+}
+.player{
+	font-family: 'Didact Gothic', sans-serif;
+	font-weight:bold;
+	font-size: 20px;
+	color:#2424A4	;
 }

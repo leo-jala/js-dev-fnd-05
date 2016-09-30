@@ -4,7 +4,9 @@ var memory;
 var game = function(){
 	var width = document.getElementById('width').value;
 	var height = document.getElementById('height').value;
-	memory = new MemoryGame(width, height);
+	var namePlayer1 = document.getElementById('player1').value;
+	var namePlayer2 = document.getElementById('player2').value;
+	memory = new MemoryGame(width, height, namePlayer1, namePlayer2);
 	document.getElementById("msg").innerHTML="";
 }
 

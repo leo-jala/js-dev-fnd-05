@@ -3,7 +3,11 @@
 * Modified by mary on 9/24/2016.
 */
  
-var Player =  function(){
+var Player =  function(name){
+
+    this.matches = 0;
+    this.turn = false;
+    this.name = name;
 
 };
 
@@ -14,10 +18,10 @@ var Cell = function (value){
 };
  
  
-var MemoryGame = function (width, height){
+var MemoryGame = function (width, height, namePlayer1, namePlayer2){
 
     this.wildcard = (width*height % 2 != 0)? true : false;
-    this.centerA = -1;
+    this.centerA = -1;namePlayer2
     this.centerB = -1;
     this.x = width;
     this.y = height;
@@ -26,6 +30,8 @@ var MemoryGame = function (width, height){
     this.prevPosY = 0;
     this.pairedCards = new Array();
     this.board = new Array();
+    this.player1 = new Player(namePlayer1);
+    this.player2 = new Player(namePlayer2);
     this.startGame();
 };
  
@@ -105,6 +111,8 @@ MemoryGame.prototype.startGame = function () {
     this.initPairedCards();
     this.shuffleArray();
     this.displayHTMLBoard();
+    this.player1.turn = true;
+    this.displayPlayerTurn();
 };
  
 MemoryGame.prototype.isBoardResolved = function () {
@@ -158,6 +166,10 @@ MemoryGame.prototype.hitCell = function(posX, posY){
                     setTimeout(function(){ alert("NOT A MATCH!!!"); }, 500);
                     this.board[this.prevPosX][this.prevPosY].status = 0;
                     this.board[posX][posY].status = 0;
+                    this.controlPlayerHits(0);
+                }
+                else{
+                    this.controlPlayerHits(1);
                 }
                 this.hits=0;
             break;
@@ -170,10 +182,51 @@ MemoryGame.prototype.hitCell = function(posX, posY){
         me.displayHTMLBoard()
     }, 1500);
 
-    if (this.isBoardResolved()){
-        document.getElementById("msg").innerHTML="Congrats!!! You Won! :)";
+    this.displayPlayerMsg();
+};
+
+MemoryGame.prototype.controlPlayerHits = function(match) {
+    if(this.player1.turn){
+        this.player1.matches += match
+        this.player1.turn = false;
+        this.player2.turn = true;
     }
-}
+    else{
+        this.player2.matches += match
+        this.player2.turn = false;
+        this.player1.turn = true;
+    }
+};
+
+MemoryGame.prototype.displayPlayerTurn = function() {
+    var name = (this.player1.turn)? this.player1.name : this.player2.name;
+    document.getElementById("playerName").innerHTML = "It's your turn "+name;
+};
+
+MemoryGame.prototype.displayPlayerMsg = function() {
+    if (this.isBoardResolved()){
+        if(this.player1.matches == this.player2.matches){
+            document.getElementById("msg").innerHTML = "DRAW!  Congratulations!";
+        }
+        else{
+            if(this.player1.matches > this.player2.matches){
+                document.getElementById("msg").innerHTML = this.player1.name + "WON!  Congratulations!";
+            }
+            else{
+                document.getElementById("msg").innerHTML = this.player2.name + "WON!  Congratulations!";
+            }
+        }
+        document.getElementById("playerName").innerHTML = "";
+        
+    }
+    else{
+
+        var me = this;
+        setTimeout(function(){
+        me.displayPlayerTurn()
+        }, 500);
+    }
+};
  
 /**
 * Displays the array in HTML view
