@@ -1,6 +1,6 @@
 /**
-* Created by chelo on 9/17/2016.
-* Modified by mary on 9/24/2016.
+* @authors: Maria Ledezma && Marcelo Vargas
+* 
 */
 
 /**
@@ -16,7 +16,7 @@ var Player =  function(name){
 
 /**
 * Cell class
-* @param {string} value
+* @param {string} value - the value of the cell
 */ 
 var Cell = function (value){
     this.value = value;
@@ -26,10 +26,10 @@ var Cell = function (value){
  
 /**
 * Memory Game class
-* @params {number} width - Set the width
-* @params {number} height - Set the height
-* @params {string} player one name- Set the player one
-* @params {string} player two name - Set the player2
+* @params {number} width - Set the width of the board
+* @params {number} height - Set the height of the board
+* @params {string} player one name- Set the name of player one
+* @params {string} player two name - Set the name player two
 */ 
 var MemoryGame = function (width, height, namePlayer1, namePlayer2){
 
