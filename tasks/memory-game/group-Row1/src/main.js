@@ -1,6 +1,9 @@
 //main.js
 var memory;
 
+/**
+* Create the instance of Memory Game based on the values given in the HTML page
+*/
 var game = function(){
 	var width = document.getElementById('width').value;
 	var height = document.getElementById('height').value;
