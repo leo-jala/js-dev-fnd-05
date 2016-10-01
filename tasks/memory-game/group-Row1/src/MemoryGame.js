@@ -2,22 +2,35 @@
 * Created by chelo on 9/17/2016.
 * Modified by mary on 9/24/2016.
 */
- 
+
+/**
+* Player class
+* @param {string} name - name of the player
+*/ 
 var Player =  function(name){
 
     this.matches = 0;
     this.turn = false;
     this.name = name;
-
 };
 
-
+/**
+* Cell class
+* @param {string} value
+*/ 
 var Cell = function (value){
     this.value = value;
     this.status = 0;
 };
  
  
+/**
+* Memory Game class
+* @params {number} width - Set the width
+* @params {number} height - Set the height
+* @params {string} player one name- Set the player one
+* @params {string} player two name - Set the player2
+*/ 
 var MemoryGame = function (width, height, namePlayer1, namePlayer2){
 
     this.wildcard = (width*height % 2 != 0)? true : false;
@@ -38,8 +51,8 @@ var MemoryGame = function (width, height, namePlayer1, namePlayer2){
  
 /**
 * Returns cell value based on the status
-* @param {cell}
-* @returns {value}
+* @param {object} cell
+* @returns {object} cell value
 */
 MemoryGame.prototype.controlDisplayState = function(cell){
 
@@ -89,7 +102,10 @@ MemoryGame.prototype.shuffleArray = function () {
 function getRandom(top) {
     return Math.floor( Math.random() * ( 1 + top - 0 ) );
 };
- 
+
+/**
+* Initialize an array with paired values
+*/
 MemoryGame.prototype.initPairedCards = function (){
     var startcode = 65;
     var limit = -1;
@@ -106,6 +122,9 @@ MemoryGame.prototype.initPairedCards = function (){
     }
 };
  
+/**
+* Starts the game by initializing primary functions
+*/
 MemoryGame.prototype.startGame = function () {
     this.initBoard();
     this.initPairedCards();
@@ -132,7 +151,10 @@ MemoryGame.prototype.isBoardResolved = function () {
 };
  
 /**
-*  @returns {boolean} true if two cell values match, otherwise false
+* Verifies if two cell values are the same
+* @param {object} cell one
+* @param {object} cell two
+* @returns {boolean} true if two cell values match, otherwise false
 */
 MemoryGame.prototype.isPair = function (cell1, cell2) {
 
@@ -140,6 +162,9 @@ MemoryGame.prototype.isPair = function (cell1, cell2) {
 };
 
 /**
+* Validates if given coordenates are valid
+* @param {number} posX
+* @param {number} posY
 *  @returns {boolean} true if the cell was not opened before or if it is not the wildcard
 */
 MemoryGame.prototype.isValidHitInPosition = function(posX, posY){
@@ -151,7 +176,12 @@ MemoryGame.prototype.isValidHitInPosition = function(posX, posY){
 
     return valid;
 };
- 
+
+/**
+* Evaluates first and second hits
+* @param {number} posX
+* @param {number} posY
+*/
 MemoryGame.prototype.hitCell = function(posX, posY){
     if(!this.isValidHitInPosition(posX, posY)){
         return;
@@ -190,6 +220,10 @@ MemoryGame.prototype.hitCell = function(posX, posY){
     this.displayPlayerMsg();
 };
 
+/**
+* Controls hit per player
+* @param {object} match
+*/
 MemoryGame.prototype.controlPlayerHits = function(match) {
 
     switch(match) {
@@ -217,11 +251,17 @@ MemoryGame.prototype.controlPlayerHits = function(match) {
     
 };
 
+/**
+* Displays player turn
+*/
 MemoryGame.prototype.displayPlayerTurn = function() {
     var name = (this.player1.turn)? this.player1.name : this.player2.name;
     document.getElementById("playerName").innerHTML = "It's your turn " + name;
 };
 
+/**
+* Displays player message
+*/
 MemoryGame.prototype.displayPlayerMsg = function() {
     if (this.isBoardResolved()){
         if(this.player1.matches == this.player2.matches){
