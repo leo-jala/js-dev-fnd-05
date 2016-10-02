@@ -9,8 +9,7 @@
 <P ALIGN=left> Starting game ....</p>
 <P ALIGN=left id="table">Table</p>
 <script type="text/javascript" >
-    var n = 4;
-    var flag;
+    var n = 2;
     var board = new Board(n);
     board.fillTable();
     document.getElementById("table").innerText = board.printTable();
@@ -19,14 +18,14 @@
 <button id="xx" onclick="play(document.getElementById('position').value);">Play</button>
 <script type="text/javascript" >
     function play(pos){
-        //Discover the cell the selected cell
+        //Discover the cell that was selected
         board.enableSelectedCell(parseInt(pos));
         document.getElementById("table").innerText = board.printTable();
         // If the last two elements are the same they are not more hid
         if (board.compareCells(parseInt(pos)) == false){
             // but they are different they are hid again, changing their status
-            sleep(2000);
-            document.getElementById("table").innerText = setTimeout(board.printTable(),2000);
+            sleep(1000);
+            document.getElementById("table").innerText = board.printTable();
         }
         if (board.isSuccess()){
             alert("Congratulations!!!! You finished the game");

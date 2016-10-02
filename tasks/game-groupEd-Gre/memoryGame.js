@@ -90,3 +90,9 @@ var Board = function (n){
         this.table[i].status = "true";
     }
 }
+
+// auxiliar function to simulate the sleep
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
