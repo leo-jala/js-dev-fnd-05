@@ -43,6 +43,12 @@ HangMan.prototype.start = function() {
 
     while(counter <= 10) {
         var letter = this.askLetter(counter);
+        if (letter == randomOption) {
+            this.Result = letter;
+            confirm("You Win");
+            break;
+        }
+
         if (randomOption.includes(letter)) {
             var position = randomOption.indexOf(letter);
 
