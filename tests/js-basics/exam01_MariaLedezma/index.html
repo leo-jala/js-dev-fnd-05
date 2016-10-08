@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>HANGMAN GAME</title>
+	<script src="src/hangman.js" type="application/javascript"></script>
+    <script src="src/main.js" type="application/javascript"></script>
+</head>
+<body onload=displayMenu()>
+	<div>HANGMAN GAME</div>
+	<div>Developed by Maria Ledezma</div>
+	<br>
+	<br>
+	<div id='menu'></div>
+
+	<br>
+	<div id="option">Chooose an option<input id="opt_input" type="text" value="2">
+	<button type="button" onClick="optionMenu()" class="button">OK</button>
+	</div>
+	<br>
+	<div id='content'></div>
+	<br>
+	<div id="letter">Enter your letter<input id="letter_input" type="text" value="">
+	<button type="button" onClick="play()" class="button">OK</button>
+	</div>
+	<br>
+	<div id='msg' class="box"></div>
+</body>
+</html>
