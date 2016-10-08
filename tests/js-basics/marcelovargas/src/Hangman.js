@@ -104,6 +104,7 @@ Hangman.prototype.initWordArray = function(selectedWord) {
 
 /**
 * Replacing the cell status if the given word matched with any value inside the array
+* @param {attempt} - word pressed
 */
 Hangman.prototype.replaceWord = function(attempt) {
 	for (var i = 0; i < this.wordArray.length; i++) {
@@ -118,7 +119,7 @@ Hangman.prototype.replaceWord = function(attempt) {
 * Displays the word array in HTML view
 */
 Hangman.prototype.displayHTMLBoard = function() {
-    // Find a <table> element with id="myTable":
+    document.getElementById('inner').innerHTML = '';
     var table = '<table border=1><tr>';
    
     for (var i = 0; i < this.wordArray.length; i++){

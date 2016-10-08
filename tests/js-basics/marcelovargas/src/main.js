@@ -7,3 +7,6 @@ function loadGame(){
 	hangman = new Hangman();
 }
 
+function loadMenu(){
+	hangman.getOptionFromMenu();
+}
