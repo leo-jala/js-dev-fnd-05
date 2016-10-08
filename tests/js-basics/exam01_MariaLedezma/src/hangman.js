@@ -1,4 +1,9 @@
 /**
+* @author: Maria Ledezma
+* 
+*/
+
+/**
 * Menu class
 * 
 */ 
@@ -7,18 +12,31 @@ var Menu = function (){
 	this.words = [];
 };
 
+/**
+* Displays the available options of the game
+* 
+*/
 Menu.prototype.displayOptions = function(){
 	var textMenu = "1. Feed Collection of Words <br> 2. Play <br> 3. Quit <br>";
     document.getElementById('menu').innerHTML = textMenu;
 	document.getElementById("letter").innerHTML="";
+	document.getElementById("content").innerHTML="";
 };
 
+/**
+* Controls the option introduced by the player and executes the corrresponding behavior
+* @param {int} option -  the valid option for the game 1,2,3
+*                        1 - feeds the word with a fixed array
+*						 2 - play the game with a random word
+*                        3 - quits the game
+*/
 Menu.prototype.controlOption = function(option){
 	var words = "hola,test,mundo,definicion,adivinanza";
     switch(option) {
         case 1:               
 			   this.feedWords(words)
 			   document.getElementById("msg").innerHTML="Your WORDS were feeded!!!";
+			   document.getElementById("content").innerHTML="";
             break;
         case 2:
             if(this.words.length==0){
@@ -119,6 +137,7 @@ Hangman.prototype.isSolved = function(){
 Hangman.prototype.controlSolution = function(){
 	if(this.isSolved()){
 		document.getElementById("msg").innerHTML="YOU WON.......GAME OVER!!!";
+		document.getElementById("letter").innerHTML="";
 	}
 	
 };

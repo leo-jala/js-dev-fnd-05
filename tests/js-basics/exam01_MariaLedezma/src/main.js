@@ -1,3 +1,8 @@
+/**
+* @author: Maria Ledezma
+* 
+*/
+
 var menu;
 var hangman;
 
