@@ -81,7 +81,6 @@ Hangman.prototype.play = function() {
 		var guess = prompt('PLEASE ENTER A LETTER OR WORD:, "A"');
 
 		this.replaceWord(guess);
-		this.showWordArray();
 		this.displayHTMLBoard();
 
 		this.attempt++;
@@ -90,14 +89,14 @@ Hangman.prototype.play = function() {
 
 Hangman.prototype.initWordArray = function(selectedWord) {
 	for (var i = 0; i < selectedWord.length; i++) {
-		this.wordArray[i] = new Cell(selectedWord[i]);
+		this.wordArray[i] = new Cell(selectedWord[i].toUpperCase());
 	};
 	return this.wordArray;
 };
 
 Hangman.prototype.replaceWord = function(attempt) {
 	for (var i = 0; i < this.wordArray.length; i++) {
-		if (attempt.toUpperCase() == this.wordArray[i]){
+		if (attempt.toUpperCase() == this.wordArray[i].value){
 			this.wordArray[i].status = true;
 		}
 	};
@@ -116,7 +115,7 @@ Hangman.prototype.displayHTMLBoard = function() {
     // Find a <table> element with id="myTable":
     var table = '<table border=1>';
    
-    for (var i = 0; i < this.x; i++){
+    for (var i = 0; i < this.wordArray.length; i++){
         table += '<tr>';
         
             table += '<td id="' + i + '" align="center">' + this.controlDisplayState(this.wordArray[i]) + '</td>';
