@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onclick="mainMenu()">  Hangman game </button>
+
+<p id="option"></p>
+<p id="information"></p>
+
+<script>
+	var collectionWORDs = new Array();
+	var selectedWord;
+	var wordToPrint;
+
+	function setMaskByDefault(){
+		wordToPrint = new Array(selectWord.length);
+		for(var i=0; i < selectWord.length; i++){
+			wordToPrint[i] = "?";
+		}
+		 wordToPrint[selectWord.length-1] = "e";
+	}
+
+	function printWordInConsole(){
+		for(var i=0; i < wordToPrint.length; i++){
+			console.log(wordToPrint[i]);
+		}
+	}
+
+	function enterCollectionWORDs(){
+		var words = prompt("Enter a collection of WORDs:", "While user is guessing the letters");
+		if (words.length <= 3) {
+			alert("Error: '" + collectionWORDs + "' does not have a word with 4 letters as minimun (requirement).");		
+		}
+		else{
+			collectionWORDs = words.split(' ');
+		}
+	}
+    function getRandomNumber(max){
+       var min = 0;
+	   return Math.floor(Math.random() * max) + min;
+    }
+	
+	function randomWord() {
+		var count = 1;
+		var word;
+		var random_index;
+		do{
+			random_index = getRandomNumber(collectionWORDs.length)
+			word = collectionWORDs[random_index];
+			if (word.length <= 3) {
+				console.log('Random word does not have more than 3 letters : ' + word)
+				count++;
+			}
+			else{
+				console.log('Random word has more than 3 letters (OK) : ' + word)
+				break;
+			}
+		}while( count <= collectionWORDs.length);
+		
+		if(count==collectionWORDs.length){
+			document.getElementById("information").innerHTML = "Bye, you did not enter a word with more than 3 letters.";
+			word = -1;
+		}
+		
+		return word;
+	}
+	
+	function startGame() {
+	    for( var attemp = 1; attemp < (selectedWord.length*2); attemp++){
+			var letter = prompt("Enter a letter: ");
+			var answer = verifyLetterInWord(letter);// falta implementar
+			if(answer == true){
+			   updateInformation();// falta implementar
+			}
+			else{
+				console.log('Sorry, you could not guess...');
+			}
+		}
+	}
+
+	function mainMenu() {
+		var selectedOption = prompt("Menu Main \n1. Feed collection of WORDs \n2. Play \n3. Quit");
+		if (selectedOption != null) {
+			switch(selectedOption){
+				case "1": 
+					enterCollectionWORDs();
+					break;
+				case "2": 
+					selectWord = randomWord();
+					setMaskByDefault();
+					printWordInConsole();
+					startGame();
+					break;
+				case "3": 
+					break;
+			}	
+			document.getElementById("option").innerHTML = "option:  " + selectedOption;
+		}
+	}
+</script>
+
+</body>
+</html>
