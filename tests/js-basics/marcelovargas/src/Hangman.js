@@ -2,7 +2,7 @@ var Hangman = function(){
 	console.log('Starting Hangman');
 	this.paragraph = new Array();
 	this.attempt = 0;
-	this.attemptLimit = 3;
+	this.attemptLimit = 10;
 	this.wordArray = new Array();
 	this.doActions(this.getOptionFromMenu());
 }
@@ -113,16 +113,14 @@ Hangman.prototype.showWordArray = function() {
 
 Hangman.prototype.displayHTMLBoard = function() {
     // Find a <table> element with id="myTable":
-    var table = '<table border=1>';
+    var table = '<table border=1><tr>';
    
     for (var i = 0; i < this.wordArray.length; i++){
-        table += '<tr>';
         
             table += '<td id="' + i + '" align="center">' + this.controlDisplayState(this.wordArray[i]) + '</td>';
         
-        table += '</tr>';
     }
-    table += '</table>';
+    table += '</tr></table>';
     document.getElementById('inner').innerHTML = table;
 };
 
@@ -133,5 +131,5 @@ Hangman.prototype.displayHTMLBoard = function() {
 */
 Hangman.prototype.controlDisplayState = function(cell){
 
-    return  (cell.status)? " - " : cell.value;
+    return  (!cell.status)? " - " : cell.value;
 };
