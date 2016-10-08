@@ -17,7 +17,7 @@ var keyWord = 'friday';
  * @returns {*}
  */
 var enterChar = function() {
-    var charX = prompt("Enter a char: ");
+    var charX = prompt("Hangman Game: Enter a char: ");
     var charValidation = new RegExp(charX);
     var numbers = '123456789';
     if (charValidation.test(numbers)) {
@@ -43,7 +43,7 @@ var validateChar = function(){
         }
         else{
             console.log('Incorrect word');
-            return false;
+            return false
         }
     }
     else{
@@ -51,7 +51,7 @@ var validateChar = function(){
     }
 }
 /**
- *
+ * @param tries
  */
 var mainGame = function(){
     var tries = 3;
