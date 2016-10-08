@@ -2,15 +2,17 @@ var menu;
 var hangman;
 
 /**
-* Create the instance of Hangman Game based on the values given in the HTML page
+* Creates the menu of Options
 */
-
-
 var displayMenu = function(){
 	menu = new Menu();
 	menu.displayOptions();
 	document.getElementById("msg").innerHTML="";
 };
+
+/**
+* Controls the option selected in the Menu
+*/
 var optionMenu = function(){
 	var option = document.getElementById('opt_input').value;
 	if(!isNaN(option) && parseInt(option)> 0 &&  parseInt(option)< 4){
@@ -22,6 +24,10 @@ var optionMenu = function(){
 		document.getElementById("msg").innerHTML="INVALID OPTION!!!";
 	}
 }
+
+/**
+* Starts the game
+*/
 
 var play = function(){
 	

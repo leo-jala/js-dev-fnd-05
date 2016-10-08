@@ -1,3 +1,7 @@
+/**
+* Menu class
+* 
+*/ 
 var Menu = function (){
 	this.hangman;
 	this.words = [];
@@ -6,6 +10,7 @@ var Menu = function (){
 Menu.prototype.displayOptions = function(){
 	var textMenu = "1. Feed Collection of Words <br> 2. Play <br> 3. Quit <br>";
     document.getElementById('menu').innerHTML = textMenu;
+	document.getElementById("letter").innerHTML="";
 };
 
 Menu.prototype.controlOption = function(option){
@@ -16,17 +21,16 @@ Menu.prototype.controlOption = function(option){
 			   document.getElementById("msg").innerHTML="Your WORDS were feeded!!!";
             break;
         case 2:
-			this.hideMenu();
             if(this.words.length==0){
 				this.feedWords(words)
 			}
 			word = this.getRandomWord();
 			this.hangman = new Hangman(word);
-			this.hangman.displayGame();			
+			this.hangman.displayGame();	
             break;
         default:
             document.getElementById("msg").innerHTML="GAME OVER!!!";
-			//window.close();
+			document.getElementById("letter").innerHTML="";
 	}
 };
 
@@ -49,7 +53,10 @@ function getRandom(limit) {
 };
 
 
-
+/**
+* CellLetter class
+* 
+*/ 
 var CellLetter = function (letter){
 	this.value = letter;
 	this.match = false;
@@ -57,7 +64,7 @@ var CellLetter = function (letter){
 };
 /**
 * Hangman class
-* @params {string} word - the word to be used for guessing
+* @params {string} word - the word to be used for the game
 */ 
 var Hangman = function (word){
 	this.arrLetters = new Array();
@@ -91,9 +98,14 @@ Hangman.prototype.displayGame = function(){
 		}
 	}
 	document.getElementById("content").innerHTML=contentGame;
+	this.displayHTMLControllers();
 	this.controlSolution();
 };
 
+Hangman.prototype.displayHTMLControllers = function(){
+	var contentController= "Enter your letter<input id='letter_input' type='text' value=''><button type='button' onClick='play()'>OK</button>";
+	document.getElementById("letter").innerHTML=contentController;
+};
 Hangman.prototype.isSolved = function(){
 	var valid = true;
 	for(i = 0; i < this.arrLetters.length; i++){
