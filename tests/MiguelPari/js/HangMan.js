@@ -92,8 +92,18 @@ HangMan.prototype.askLetter = function(chanceNumber){
 }
 
 HangMan.prototype.getRandomOption = function() {
+    var tempArray = [];
+    for (var i = 0; i < this.Words.length; i++) {
+        var tempText = this.Words[i];
+        if (tempText.length > 2 ) {
+            tempArray.push(this.Words[i]);
+        }
+    }
+    this.Words = tempArray;
+
     var randomNumber = parseInt(Math.random() * this.Words.length);
     var randomOption = this.Words[randomNumber];
+
     this.Result = "";
     for (i = 0; i < randomOption.length; i++) {
         this.Result += "_";
@@ -103,5 +113,5 @@ HangMan.prototype.getRandomOption = function() {
 }
 
 var game = new HangMan();
-game.main();
+//game.main();
 
