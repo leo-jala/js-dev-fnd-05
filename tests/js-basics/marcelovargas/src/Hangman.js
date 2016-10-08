@@ -70,6 +70,9 @@ function getRandomFromArray(arrayParagraph) {
     return random;
 };
 
+/**
+* Playing the game
+*/
 Hangman.prototype.play = function() {
 	var selectedWord = this.paragraph[getRandomFromArray(this.paragraph)];
 	this.initWordArray(selectedWord);
@@ -78,15 +81,20 @@ Hangman.prototype.play = function() {
 
 	while (this.attempt < this.attemptLimit)
 	{
-		var guess = prompt('PLEASE ENTER A LETTER OR WORD:, "A"');
+		var guess = prompt('PLEASE ENTER A LETTER OR WORD:');
 
 		this.replaceWord(guess);
 		this.displayHTMLBoard();
 
 		this.attempt++;
+
+
 	}
 };
 
+/**
+* Init a array containing the selected word as values
+*/
 Hangman.prototype.initWordArray = function(selectedWord) {
 	for (var i = 0; i < selectedWord.length; i++) {
 		this.wordArray[i] = new Cell(selectedWord[i].toUpperCase());
@@ -94,6 +102,9 @@ Hangman.prototype.initWordArray = function(selectedWord) {
 	return this.wordArray;
 };
 
+/**
+* Replacing the cell status if the given word matched with any value inside the array
+*/
 Hangman.prototype.replaceWord = function(attempt) {
 	for (var i = 0; i < this.wordArray.length; i++) {
 		if (attempt.toUpperCase() == this.wordArray[i].value){
@@ -103,14 +114,9 @@ Hangman.prototype.replaceWord = function(attempt) {
 	this.wordArray;
 };
 
-Hangman.prototype.showWordArray = function() {
-	for (var i = 0; i < this.wordArray.length; i++) {
-		document.getElementById("demo").innerHTML = this.wordArray[i];
-	};
-	return this.wordArray;
-};
-
-
+/**
+* Displays the word array in HTML view
+*/
 Hangman.prototype.displayHTMLBoard = function() {
     // Find a <table> element with id="myTable":
     var table = '<table border=1><tr>';
