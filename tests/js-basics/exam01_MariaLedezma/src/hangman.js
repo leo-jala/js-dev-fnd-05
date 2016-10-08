@@ -5,22 +5,19 @@ var Menu = function (){
 
 Menu.prototype.displayOptions = function(){
 	var textMenu = "1. Feed Collection of Words <br> 2. Play <br> 3. Quit <br>";
-	document.getElementById('menu').visibility = "visible";
     document.getElementById('menu').innerHTML = textMenu;
 };
 
 Menu.prototype.controlOption = function(option){
-
+	var words = "hola,test,mundo,definicion,adivinanza";
     switch(option) {
-        case 1:
-               var words = "hola,test,mundo,definicion,adivinanza";
+        case 1:               
 			   this.feedWords(words)
 			   document.getElementById("msg").innerHTML="Your WORDS were feeded!!!";
             break;
         case 2:
 			this.hideMenu();
             if(this.words.length==0){
-				var words = "hola,test,mundo,definicion,adivinanza";
 				this.feedWords(words)
 			}
 			word = this.getRandomWord();

@@ -27,6 +27,6 @@ var play = function(){
 	
 	var letter = document.getElementById('letter_input').value;
 	hangman = menu.hangman;
-	hangman.controlLetter(letter);
+	hangman.controlLetter(letter.toLowerCase());
 	hangman.displayGame();
 }
