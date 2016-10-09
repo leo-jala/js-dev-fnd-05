@@ -1,0 +1,20 @@
+.title {
+  font-family: 'Didact Gothic', sans-serif;
+    font-size: 200%;
+  border: 2px solid white;
+  width: 100%;
+}
+
+.myTd {
+	font-family: 'Didact Gothic', sans-serif;
+    font-size: 200%;
+	border: 2px solid white;
+	width: 100px;
+}
+
+.textCommon{
+	font-family: 'Didact Gothic', sans-serif;
+	font-weight:bold;
+	font-size: 20px;
+	color:#116611;
+}
