@@ -1,11 +1,21 @@
+/**
+* Hangman class
+*/ 
 var Hangman = function(){
 	console.log('Starting Hangman');
-	this.paragraph = new Array();
-	this.attempt = 0;
-	this.attemptLimit = 10;
-	this.wordArray = new Array();
+	this.initValues();
 	this.doActions(this.getOptionFromMenu());
 }
+
+Hangman.prototype.initValues = function() {
+	this.paragraph = new Array();
+	this.attempt = 1;
+	this.attemptLimit = 10;
+	this.selectedWord = "";
+	this.wordArray = new Array();
+	document.getElementById('turn').innerHTML = '';	
+	document.getElementById('status').innerHTML = '';
+};
 
 /**
 * Cell class
@@ -31,7 +41,7 @@ Hangman.prototype.doActions = function(option) {
 	if (option != null) {
 		switch(parseInt(option)) {
 	        case 1:
-	            var paragraphText = prompt('PLEASE ENTER A PARAGRAPH', "1 t2 tr3 four fivee ssiiXx sseeven eeiiggth paragraph ...").toUpperCase();
+	            var paragraphText = prompt('PLEASE ENTER A PARAGRAPH', "Adult education is essential for Democracy of India The number of grown up illiterates is great All college and senior School students should come forward to visit villages in the summer vacation. Each one will teach one there. This will remove illiteracy and strengthen our democracy").toUpperCase();
 	            this.paragraph = getArrayFromParagraph(paragraphText);
 	            this.doActions(this.getOptionFromMenu());
 	            break;
@@ -54,7 +64,7 @@ function getArrayFromParagraph(paragraph){
 	var result = paragraph.split(' ');
 	for (var i = 0; i < result.length; i++) {
 		if (result[i].length > 3) {
-			console.log(result[i] + ' ' + result[i].length);
+			// console.log(result[i] + ' ' + result[i].length);
 			arrayResult.push(result[i]);
 		}
 	}
@@ -66,7 +76,6 @@ function getArrayFromParagraph(paragraph){
 */
 function getRandomFromArray(arrayParagraph) {
 	var random = Math.floor( Math.random() * ( 0 + arrayParagraph.length - 0 ));
-	console.log('random:', random);
     return random;
 };
 
@@ -74,22 +83,45 @@ function getRandomFromArray(arrayParagraph) {
 * Playing the game
 */
 Hangman.prototype.play = function() {
-	var selectedWord = this.paragraph[getRandomFromArray(this.paragraph)];
-	this.initWordArray(selectedWord);
+	this.selectedWord = this.paragraph[getRandomFromArray(this.paragraph)];
+	this.initWordArray(this.selectedWord);
+	this.buildKeyboard();
+	console.info('Selected random word from array:',this.selectedWord);
+	this.displayHTMLBoard();
+};
 
-	console.info('Selected random word from array:',selectedWord);
-
-	while (this.attempt < this.attemptLimit)
-	{
-		var guess = prompt('PLEASE ENTER A LETTER OR WORD:');
-
-		this.replaceWord(guess);
-		this.displayHTMLBoard();
-
-		this.attempt++;
-
-
+/**
+* Method to click in a char, view if that matches with the word and display
+* @param {char}
+*/
+Hangman.prototype.hitWord = function(wordPressed) {
+	this.replaceWord(wordPressed);
+	this.displayHTMLBoard();
+	document.getElementById('turn').innerHTML = "Try #" + this.attempt;	
+	if(this.attempt < this.attemptLimit){
+		if(this.IsWordDiscovered()){
+		this.disableKeyboard();
+		document.getElementById('status').innerHTML = "Congratulations! you won the game.";	
+		}
+		else{
+			this.attempt++;		
+		}
 	}
+	else{
+		this.disableKeyboard();
+		document.getElementById('status').innerHTML = "Sorry you lost the game :( <br> The word was '" + this.selectedWord + "'";
+	}
+};
+
+Hangman.prototype.IsWordDiscovered = function(first_argument) {
+	var flag = true;
+	for (var i = 0; i < this.wordArray.length; i++) {
+		if(this.wordArray[i].status == false){
+			flag = false;
+			break;
+		}
+	};
+	return flag;	
 };
 
 /**
@@ -124,7 +156,7 @@ Hangman.prototype.displayHTMLBoard = function() {
    
     for (var i = 0; i < this.wordArray.length; i++){
         
-            table += '<td id="' + i + '" align="center">' + this.controlDisplayState(this.wordArray[i]) + '</td>';
+            table += '<td class="myTd" id="' + i + '" align="center">' + this.controlDisplayState(this.wordArray[i]) + '</td>';
         
     }
     table += '</tr></table>';
@@ -138,5 +170,35 @@ Hangman.prototype.displayHTMLBoard = function() {
 */
 Hangman.prototype.controlDisplayState = function(cell){
 
-    return  (!cell.status)? " - " : cell.value;
+    return  (!cell.status)? " _ " : cell.value;
+};
+
+/**
+* Method to build a keyboard buttons and display them inside a table
+*/
+Hangman.prototype.buildKeyboard = function() {
+	var startcode = 65;
+	var limit = startcode + 26;
+	var table = '<table border=0><tr>';
+
+	for (var i = startcode; i < limit; i++){
+		if(i == (limit-13)){
+			table += '</tr><tr>';
+		}
+        table += '<td align="center" width=50 id="' + i + '">' + '<input type="button" value=" '+ String.fromCharCode(i) +' " id="' + String.fromCharCode(i) + '" onClick="HitKey(\''+ String.fromCharCode(i) + '\')">' + '</td>';
+    }
+    table += '</tr></table>';
+    document.getElementById('keyboard').innerHTML = table;
+};
+
+/**
+* Method disable all buttons from the keyboard
+*/
+Hangman.prototype.disableKeyboard = function() {
+	var startcode = 65;
+	var limit = startcode + 26;
+
+	for (var i = startcode; i < limit; i++){
+    document.getElementById(String.fromCharCode(i)).disabled = true;
+    }
 };
