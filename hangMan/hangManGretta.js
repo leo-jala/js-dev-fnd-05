@@ -19,9 +19,7 @@ var Game = function () {
     this.startPlay = function(){
         this.attempts = 10;
         this.selectWordAleatory();
-        window.alert(this.currentWord);
         this.initGuessWord(this.currentWord.length);
-        window.alert(this.guessWord);
         while ((this.attempts > 0) && (this.currentWord != this.guessWord)){
             var cadRead = "";
             cadRead = window.prompt("Enter a letter or the guessed word :  " + this.guessWord + "\n available attempts: " + this.attempts).trim().toUpperCase();
@@ -44,7 +42,7 @@ var Game = function () {
             window.alert("Game Over");
         }
         if (this.currentWord == this.guessWord) {
-            window.alert("Congratulations!!! You guessed the word");
+            window.alert("Congratulations!!! You guessed the word : " + this.guessWord);
         }
     }
 
@@ -61,7 +59,6 @@ var Game = function () {
     // method to replace the word in the guessed word
     this.replaceLetter = function (cad){
         var n = this.currentWord.length;
-        window.alert("replacing  " + cad );
         var i;
         for( i=0; i<n; i++)
             if (this.currentWord[i] == cad){
@@ -91,7 +88,6 @@ while (option != 3)
             if (cad != null){
                 game.feedCollection(cad);
             }
-            window.alert("Total words saved: " + game.availableWords.length);
             break;
         case 2:
             game.startPlay();
