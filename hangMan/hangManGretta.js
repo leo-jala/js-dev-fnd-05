@@ -1,6 +1,5 @@
-
 /**
- * Created by jalatraining on 10/8/2016.
+ * Created by Gretta Rocha on 10/8/2016.
  */
 
 //class to define the game
