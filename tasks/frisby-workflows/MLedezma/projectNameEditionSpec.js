@@ -15,7 +15,7 @@ frisby.globalSetup({
 frisby
 	  .create('Create New Project')
 	  .post('https://todo.ly/api/projects.json',{
-			  Content: "Maria Project-"+sufix
+			  Content: "ProjectToRename-"+sufix
 		    },{json:true})
 	  .expectStatus(200)
 	  .afterJSON(function(jsonData){	  
