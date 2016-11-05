@@ -1,0 +1,12 @@
+WORKFLOWS TODO.LY:
+------------------
+1. Verify that a project name can be edited
+2. Verify that it is possible to change the icon of a project
+3. Verify that a specific project can be deleted
+4. Verify that an item name can be changed
+5. Verify that an item can be added to a new project in todo.ly
+6. Verify that is possible to save a due date to the item of a project
+7. Verify that it can be set a priority to item from a project
+8. Verify that an item can be deleted from a specific project
+9. Verify that an item can be postponed for 5 days
+10. Verify that is possible to change the name of a user
