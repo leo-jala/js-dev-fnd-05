@@ -5,9 +5,11 @@ var faker = require('/usr/local/lib/node_modules/faker');
 var URLs = require('./../resources/URLs');
 var payloadBuild = require('./../resources/payloadBasic.json');
 var Util = require('./../util/Util');
+var CleanEnvironment = require('./../util/CleanEnvironment');
 
 URLs = new URLs();
 Util = new Util();
+CleanEnvironment = new CleanEnvironment();
 
 frisby.globalSetup({
 		request: {
@@ -20,6 +22,8 @@ frisby.globalSetup({
 var newProject = {
 	Content: faker.name.title()
 };
+
+CleanEnvironment.cleanProjects();
 
 frisby
 	.create('All items from a project has same projectId value')
