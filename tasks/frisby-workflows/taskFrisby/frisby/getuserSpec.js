@@ -12,7 +12,11 @@ frisby.globalSetup({
 });
 
 /**
+<<<<<<< HEAD
  * Get User
+=======
+ * smock testing for Get User
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
  *
  */
 

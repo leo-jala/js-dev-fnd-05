@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+// Frisby tests
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
 
 var frisby = require('frisby');
 
@@ -29,7 +33,11 @@ var userUpdate = {
 };
 
 /**
+<<<<<<< HEAD
  * Update User
+=======
+ * smock testing for Delete User
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
  *
  */
 

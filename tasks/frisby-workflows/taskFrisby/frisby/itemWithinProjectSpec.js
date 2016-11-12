@@ -1,11 +1,23 @@
+<<<<<<< HEAD
 
 var frisby = require('frisby');
 
 frisby.globalSetup({ //
+=======
+//CRUD
+var frisby = require('frisby');
+
+frisby.globalSetup({ //se aplica a todos
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
     request: {
         headers: {
             'Authorization': 'Basic Token'
         },
+<<<<<<< HEAD
+=======
+        //proxy: 'http://172.20.240.5:8080',
+        //json: true,  //declara el tipo de content
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
         inspectOnFailure: true 
     }
 });
@@ -54,7 +66,11 @@ var createItemWithinProject = function(proId, content, itemName){
 
 
 /**
+<<<<<<< HEAD
 * create/read/update/delete an item within a project
+=======
+* CRUD Test case1: create/read/update/delete an item within a project
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
 */
 var project = {
     "Content": "projectWithItem",

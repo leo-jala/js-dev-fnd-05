@@ -1,11 +1,20 @@
 //CRUD
 var frisby = require('frisby');
 
+<<<<<<< HEAD
 frisby.globalSetup({
+=======
+frisby.globalSetup({ //se aplica a todos
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
     request: {
         headers: {
             'Authorization': 'Basic Token'
         },
+<<<<<<< HEAD
+=======
+        //proxy: 'http://172.20.240.5:8080',
+        //json: true,  //declara el tipo de content
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
         inspectOnFailure: true 
     }
 });
@@ -68,7 +77,11 @@ var createChildItem = function(childItemName, itemParentId){
 };
 
 /**
+<<<<<<< HEAD
 * Test case: create/read/update/delete a child item within a project
+=======
+* CRUD Test case2: create/read/update/delete a child item within a project
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
 */
 var project = {
     "Content": "projectWithChildItem",

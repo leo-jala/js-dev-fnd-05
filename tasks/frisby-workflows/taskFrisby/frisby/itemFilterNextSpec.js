@@ -10,7 +10,11 @@ frisby.globalSetup({
 });
 
 /**
+<<<<<<< HEAD
  * Item in  Filters "NEXT"
+=======
+ * CRUD of a Item in  Filters "NEXT"
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
  *
  */
 

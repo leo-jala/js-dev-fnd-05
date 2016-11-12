@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+//CRUD
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
 var frisby = require('frisby');
 
 frisby.globalSetup({ 
@@ -42,7 +46,11 @@ var createItemWithinTodayFilter = function(itemName){
 };
 
 /**
+<<<<<<< HEAD
 *create/read/update/delete an item within the today filter
+=======
+* CRUD Test case3: create/read/update/delete an item within the today filter
+>>>>>>> 03ade354491a5d0f4bebf669d6507046bc82689a
 */
 
 var updateItemValues = {
