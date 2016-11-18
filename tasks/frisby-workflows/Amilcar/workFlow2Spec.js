@@ -3,7 +3,6 @@
  */
 
 // workFlow2Spec.js
-//The get user method returns the current authenticated user only
 
 var frisby = require('frisby');
 var faker = require('faker');
@@ -16,8 +15,10 @@ frisby.globalSetup({
     }
 });
 
+//The get user method returns the current authenticated user only
+
 frisby
-    .create('The current authenticated user should be got it')
+    .create('The current authenticated user should be obtained it')
     .get('https://todo.ly/api/user.json')
     .expectStatus(200)
     .inspectJSON()

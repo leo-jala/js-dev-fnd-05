@@ -20,13 +20,14 @@ var newUser = {
 
 //This test case does no require authorization
 //The get user method returns the current authenticated user
-//.expectJSON() Not apply due to the hide password with 'null'
+//.expectJSON() only Not apply due to the hide password with 'null'
 
 frisby
     .create('A new user should be created without authorization')
     .post('https://todo.ly/api/user.json', newUser, {json: true})
-    .expectStatus(200)
-    .inspectJSON()
+    .expectStatus(200)    
     .expectHeader('Content-Type', 'application/json; charset=utf-8')
+	.expectJSON({Email: email, FullName: name + ' '+ last})	
+	.inspectJSON()
     .toss();
 
