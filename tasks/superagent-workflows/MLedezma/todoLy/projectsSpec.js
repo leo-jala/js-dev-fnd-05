@@ -4,11 +4,14 @@ var faker = require('faker');
 
 var TodoLy = require('./../framework/todoLy');
 var Projects = TodoLy.resources.projects;
+var Items = TodoLy.resources.items;
 
 describe('Todo.ly', function(){
 	describe('Projects', function(){
 		
 		var project;
+		var items;
+		var newItems;
 		var newProject;
 		
 		beforeEach(function(done){
@@ -17,6 +20,14 @@ describe('Todo.ly', function(){
 			};
 			Projects.create(project, function(err, project){
 				newProject = project;
+				done();				
+			});
+			items = {
+						Content: faker.name.title(),
+						ProjectId: newProject.ProjectId
+			};
+			Items.addItems(items, function(err, items){
+				newItems = items;
 				done();				
 			});
 		});
@@ -37,7 +48,7 @@ describe('Todo.ly', function(){
 			});
 		});
 		
-		it('verify that a specific project can be deleted', function(){
+		it('verify that a specific project can be deleted', function(done){
 			Projects.delete(newProject.Id, function(err, project){
 				expect(project.Deleted).toBeTruthy();
 				expect(project.Id).toEqual(newProject.Id);
@@ -46,21 +57,42 @@ describe('Todo.ly', function(){
 		});
 		
 		it('verify that some items can be added to a new project', function(done){
-			Projects.addItems(newProject.Id, function(err, project){
-				expect(project.Id).toEqual(newProject.Id);
+			
+			expect(newItems.ProjectId).toEqual(items.ProjectId);
+		});
+		
+		it('verify that an item name can be changed', function(done){
+			var updateItem = {
+				Content: faker.name.title(),
+				ProjectId: newProject.Id
+			};
+			
+			Items.update(updateItem, function(err, items){
+				expect(newItems.ProjectId).toEqual(items.ProjectId);
+				expect(updateItem.Content).toEqual(items.Content);
 				done();
 			});
 		});
 		
-		xit('verify that an item name can be changed', function(done){
-			
-		});
-		
-		xit('verify that an item can be deleted from a specific project', function(done){
-			
+		it('verify that an item can be deleted from a specific project', function(done){
+			Items.delete(newItems.ProjectId, function(err, items){
+				expect(items.Deleted).toBeTruthy();
+				expect(items.ProjectId).toEqual(newItems.ProjectId);
+				done();
+			});
 		});
 
-		xit('verify that is possible to save a due date to the item of a project', function(done){
+		it('verify that is possible to save a due date to the item of a project', function(done){
+			var updateItem = {
+				ProjectId: newProject.Id,
+				DueDate: "31 Aug 2027 8:30 AM"
+			};
+			
+			Items.update(updateItem, function(err, items){
+				expect(newItems.ProjectId).toEqual(items.ProjectId);
+				expect(updateItem.Content).toEqual(items.Content);
+				done();
+			});
 			
 		});
 

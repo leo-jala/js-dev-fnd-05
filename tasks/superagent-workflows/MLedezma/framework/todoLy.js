@@ -5,7 +5,7 @@ var Projects = require('./resources/projects');
 
 var TodoLy = {
 	resources: {
-		//items: Items,
+		items: Items,
 		projects: Projects
 	}
 };
