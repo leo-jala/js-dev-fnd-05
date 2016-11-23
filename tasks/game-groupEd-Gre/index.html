@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Primera Aplicacion Web con JavaScript</title>
+    <script type="text/javascript" src="memoryGame.js"></script>
+</head>
+<body>
+<P ALIGN=left><b> MEMORY GAME</b></p>
+<P ALIGN=left> Starting game ....</p>
+<P ALIGN=left id="table">Table</p>
+<script type="text/javascript" >
+    var n = 2;
+    var board = new Board(n);
+    board.fillTable();
+    document.getElementById("table").innerText = board.printTable();
+</script>
+<P ALIGN=left> Discover element (0...n-1): <input type="text" id="position" size="2"/></p>
+<button id="xx" onclick="play(document.getElementById('position').value);">Play</button>
+<script type="text/javascript" >
+    function play(pos){
+        //Discover the cell that was selected
+        board.enableSelectedCell(parseInt(pos));
+        document.getElementById("table").innerText = board.printTable();
+        // If the last two elements are the same they are not more hid
+        if (board.compareCells(parseInt(pos)) == false){
+            // but they are different they are hid again, changing their status
+            sleep(1000);
+            document.getElementById("table").innerText = board.printTable();
+        }
+        if (board.isSuccess()){
+            alert("Congratulations!!!! You finished the game");
+        }
+    }
+</script>
+</body>
+</html>
