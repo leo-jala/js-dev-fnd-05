@@ -1,0 +1,23 @@
+{
+  "name": "todoly",
+  "version": "1.0.0",
+  "description": "Test API JS",
+  "main": "framework/todoly.js",
+  "scripts": {
+    "test": "jasmine-node specs/"
+  },
+  "keywords": [
+    "test",
+    "api",
+    "rest",
+    "frisby",
+    "superagent"
+  ],
+  "author": "Marcelo.Vargas@jalasoft.com",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^3.1.0",
+    "frisby": "^0.8.5",
+    "superagent": "^3.0.0"
+  }
+}
