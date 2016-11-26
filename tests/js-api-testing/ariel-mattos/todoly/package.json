@@ -1,0 +1,17 @@
+{
+  "name": "todoly",
+  "version": "1.0.0",
+  "description": "API testing final test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ariel Mattos",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^3.1.0",
+    "frisby": "^0.8.5",
+    "jasmine-node": "^1.14.5",
+    "superagent": "^2.3.0"
+  }
+}
