@@ -9,6 +9,7 @@
   "author": "Miguel Pari",
   "license": "ISC",
   "dependencies": {
+    "faker": "^3.1.0",
     "frisby": "^0.8.5",
     "superagent": "^3.0.0"
   }
