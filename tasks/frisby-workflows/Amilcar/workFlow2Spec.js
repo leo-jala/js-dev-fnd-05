@@ -18,13 +18,13 @@ frisby.globalSetup({
 //The get user method returns the current authenticated user only
 
 frisby
-    .create('The current authenticated user should be obtained it')
+    .create('The current authenticated user should be obtained')
     .get('https://todo.ly/api/user.json')
     .expectStatus(200)
     .inspectJSON()
     .afterJSON(function(json){
         var updatingCurrentUser = {
-            "Email": "leo.fcx_updated@gmail.com",
+            "Email": "leo.fcx_updated123@gmail.com",
             "FullName": "Pedrito123"
         };
         frisby
@@ -32,6 +32,14 @@ frisby
             .post('https://todo.ly/api/user/0.json', updatingCurrentUser,{json:true})
             .expectStatus(200)
             .inspectJSON()
+			.afterJSON(function(json){
+				frisby
+					.create('The current authenticated user should be delete')
+					.delete('https://todo.ly/api/user/0.json')
+					.expectStatus(200)
+					.inspectJSON()
+					.toss();
+			})
             .toss();
     })
     .toss();
