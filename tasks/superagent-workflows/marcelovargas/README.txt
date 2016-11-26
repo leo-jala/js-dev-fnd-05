@@ -1,0 +1,1 @@
+Please set the TODO.LY credentials in the 'config/credentials.json' file

@@ -1,0 +1,19 @@
+{
+  "name": "marcelovargas",
+  "version": "1.0.0",
+  "description": "SuperAgent workflows",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node specs/"
+  },
+  "keywords": [
+    "superagent",
+    "api"
+  ],
+  "author": "Marcelo Vargas",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^3.1.0",
+    "superagent": "^3.0.0"
+  }
+}
